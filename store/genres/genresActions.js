@@ -13,6 +13,8 @@ export const setGenresAC = data => ({
 export const getGenresAsync = () => {
   return dispatch => {
     dispatch(getGenresAC());
-    return axios.get(FETCH_GENRES).then(data => console.log("WHAT IS IT: ", data));
+    return axios
+      .get(FETCH_GENRES)
+      .then(data => dispatch(setGenresAC(data.data.genres)));
   };
 };

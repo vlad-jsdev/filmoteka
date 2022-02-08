@@ -17,14 +17,15 @@ import {getGenresAsync} from '../store/genres/genresActions';
 const Home = () => {
   const dataMovies = useSelector(state => state.popularMoviesReducer);
   const dataTVs = useSelector(state => state.popularTVsReducer);
-  const data = useSelector(state => state.genresReducer);
+  const dataGenres = useSelector(state => state.genresReducer);
   const [loading, setLoading] = useState(false);
   const movies = dataMovies.data;
   const tvs = dataTVs.data;
+  const genres = dataGenres.genres;
   const {posterImages} = dataMovies;
   const dispatch = useDispatch();
 
-  console.log('poster IMG: ', data);
+  console.log('poster IMG: ', genres);
   useEffect(() => {
     Promise.all([
       dispatch(getPopularAsync()),
@@ -43,7 +44,7 @@ const Home = () => {
           <Text style={style.text}>Popular TVs</Text>
           <List data={tvs} />
           <Text style={style.text}>Ganres</Text>
-          {/*<List data={ganres} />*/}
+          <List data={genres} />
         </ScrollView>
       ) : (
         <View style={style.parentIndicator}>
