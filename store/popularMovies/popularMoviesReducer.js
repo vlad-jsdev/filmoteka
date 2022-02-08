@@ -3,7 +3,7 @@ import {
   SET_POPULAR,
   GET_POSTER_IMAGES,
   linkImg,
-} from './popularConstants';
+} from './popularMoviesConstants';
 
 const initialState = {
   isLoading: false,
@@ -11,7 +11,7 @@ const initialState = {
   posterImages: [],
 };
 
-export const popularReducer = (state = initialState, action) => {
+export const popularMoviesReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_POPULAR:
       return {...state, isLoading: true};

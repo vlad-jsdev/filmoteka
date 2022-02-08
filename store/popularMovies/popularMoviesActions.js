@@ -1,4 +1,4 @@
-import {GET_POPULAR, SET_POPULAR, url} from './popularConstants';
+import {GET_POPULAR, SET_POPULAR, url} from './popularMoviesConstants';
 import axios from 'axios';
 
 export const getPopularAC = () => ({

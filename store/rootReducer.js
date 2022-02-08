@@ -1,6 +1,8 @@
 import {combineReducers} from 'redux';
-import {popularReducer} from './popular/popularReducer';
+import {popularMoviesReducer} from './popularMovies/popularMoviesReducer';
+import {popularTVsReducer} from './popularTVs/popularTVsReducer';
 
 export const rootReducer = combineReducers({
-  popularReducer,
+  popularMoviesReducer: popularMoviesReducer,
+  popularTVsReducer: popularTVsReducer,
 });

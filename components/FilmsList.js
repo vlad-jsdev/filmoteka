@@ -5,7 +5,7 @@ import FilmElement from './FilmElement';
 const FilmsList = ({movies}) => (
   <FlatList
     data={movies}
-    renderItem={FilmElement}
+    renderItem={({item}) => <FilmElement item={item} />}
     horizontal
     keyExtractor={item => item.id}
   />
