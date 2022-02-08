@@ -1,16 +1,21 @@
-import React from 'react';
+import React, {PureComponent} from 'react';
 import {Image, TouchableOpacity, StyleSheet, Text, View} from 'react-native';
 import {linkImg} from '../store/popularMovies/popularMoviesConstants';
 
-class FilmElement extends React.PureComponent {
+class FilmElement extends PureComponent {
   render() {
     const {item} = this.props;
     console.log(item);
     return (
-      <TouchableOpacity style={style.container}>
-        <Image style={style.image} source={{uri: linkImg + item.poster_path}} />
-        <Text style={style.title}>{item.name || item.original_title}</Text>
-      </TouchableOpacity>
+      <View>
+        <TouchableOpacity style={style.container}>
+          <Image
+            style={style.image}
+            source={{uri: linkImg + item.poster_path}}
+          />
+          <Text style={style.title}>{item.name || item.original_title}</Text>
+        </TouchableOpacity>
+      </View>
     );
   }
 }
