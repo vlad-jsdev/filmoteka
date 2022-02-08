@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
-import {Text, View, StyleSheet, ScrollView} from 'react-native';
+import {Text, StyleSheet, ScrollView} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
+
 import {getPopularAsync} from '../store/popularMovies/popularMoviesActions';
 import FilmsPoster from '../components/FilmPoster';
 import FilmsList from '../components/FilmsList';
