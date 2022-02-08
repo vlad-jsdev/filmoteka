@@ -1,9 +1,5 @@
-import {
-  GET_POPULAR,
-  SET_POPULAR,
-  GET_POSTER_IMAGES,
-  linkImg,
-} from './popularMoviesConstants';
+import {GET_POPULAR, SET_POPULAR} from './popularMoviesConstants';
+import {URL_IMAGE} from '../../constants/constants';
 
 const initialState = {
   isLoading: false,
@@ -21,7 +17,7 @@ export const popularMoviesReducer = (state = initialState, action) => {
         data: action.payload,
         isLoading: false,
         posterImages: action.payload.map(
-          item => `${linkImg + item.poster_path}`,
+          item => `${URL_IMAGE + item.poster_path}`,
         ),
       };
     default:

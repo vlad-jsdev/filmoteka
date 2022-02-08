@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
 import {Image, TouchableOpacity, StyleSheet, Text, View} from 'react-native';
-import {linkImg} from '../store/popularMovies/popularMoviesConstants';
+import {URL_IMAGE} from '../constants/constants';
 
 class FilmElement extends PureComponent {
   render() {
@@ -11,7 +11,7 @@ class FilmElement extends PureComponent {
         <TouchableOpacity style={style.container}>
           <Image
             style={style.image}
-            source={{uri: linkImg + item.poster_path}}
+            source={{uri: URL_IMAGE + item.poster_path}}
           />
           <Text style={style.title}>{item.name || item.original_title}</Text>
         </TouchableOpacity>

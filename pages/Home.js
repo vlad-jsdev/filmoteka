@@ -10,42 +10,42 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import {getPopularAsync} from '../store/popularMovies/popularMoviesActions';
 import FilmsPoster from '../components/FilmPoster';
-import FilmsList from '../components/FilmsList';
+import List from '../components/List';
 import {getPopularTVsAsync} from '../store/popularTVs/popularTVsActions';
+import {getGenresAsync} from '../store/genres/genresActions';
 
 const Home = () => {
   const dataMovies = useSelector(state => state.popularMoviesReducer);
   const dataTVs = useSelector(state => state.popularTVsReducer);
-  const [loading, setLoading] = useState({
-    tv: false,
-    movies: false,
-  });
+  const data = useSelector(state => state.genresReducer);
+  const [loading, setLoading] = useState(false);
   const movies = dataMovies.data;
   const tvs = dataTVs.data;
   const {posterImages} = dataMovies;
   const dispatch = useDispatch();
 
+  console.log('poster IMG: ', data);
   useEffect(() => {
-    dispatch(getPopularAsync()).finally(() =>
-      setLoading(prev => ({...prev, movies: true})),
-    );
-    dispatch(getPopularTVsAsync()).finally(() =>
-      setLoading(prev => ({...prev, tv: true})),
-    );
+    Promise.all([
+      dispatch(getPopularAsync()),
+      dispatch(getPopularTVsAsync()),
+      dispatch(getGenresAsync()),
+    ]).finally(() => setLoading(true));
   }, []);
 
   return (
     <>
-      {loading.movies && loading.tv && (
+      {loading ? (
         <ScrollView>
           <FilmsPoster images={posterImages} />
           <Text style={style.text}>Popular Films</Text>
-          <FilmsList movies={movies} />
+          <List data={movies} />
           <Text style={style.text}>Popular TVs</Text>
-          <FilmsList movies={tvs} />
+          <List data={tvs} />
+          <Text style={style.text}>Ganres</Text>
+          {/*<List data={ganres} />*/}
         </ScrollView>
-      )}
-      {!loading.movies && !loading.tv && (
+      ) : (
         <View style={style.parentIndicator}>
           <ActivityIndicator size="large" color="#00ff00" />
         </View>

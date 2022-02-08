@@ -1,5 +1,6 @@
-import {GET_POPULAR_TV, SET_POPULAR_TV, url} from './popularTVsConstants';
+import {GET_POPULAR_TV, SET_POPULAR_TV} from './popularTVsConstants';
 import axios from 'axios';
+import {FETCH_POPULAR_TVS} from '../../constants/constants';
 
 export const getPopularAC = () => ({
   type: GET_POPULAR_TV,
@@ -13,7 +14,13 @@ export const getPopularTVsAsync = () => {
   return dispatch => {
     dispatch(getPopularAC());
     return axios
-      .get(url)
-      .then(data => dispatch(setPopularAC(data.data.results)));
+      .get(FETCH_POPULAR_TVS)
+      .then(data => dispatch(setPopularAC(data.data.results)))
+      .catch(error =>
+        console.log(
+          'There has been a problem with your axios operation: ' +
+            error.message,
+        ),
+      );
   };
 };
