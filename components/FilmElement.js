@@ -1,14 +1,17 @@
 import React, {PureComponent} from 'react';
 import {Image, TouchableOpacity, StyleSheet, Text, View} from 'react-native';
 import {URL_IMAGE} from '../constants/constants';
+import {useNavigation} from '@react-navigation/native';
 
 class FilmElement extends PureComponent {
   render() {
+    const {navigation} = this.props;
     const {item} = this.props;
-    console.log(item);
     return (
       <View>
-        <TouchableOpacity style={style.container}>
+        <TouchableOpacity
+          style={style.container}
+          onPress={() => navigation.navigate('Details', {item})}>
           <Image
             style={style.image}
             source={{uri: URL_IMAGE + item.poster_path}}
@@ -18,6 +21,11 @@ class FilmElement extends PureComponent {
       </View>
     );
   }
+}
+
+export default function (props) {
+  const navigation = useNavigation();
+  return <FilmElement {...props} navigation={navigation} />;
 }
 
 const style = StyleSheet.create({
@@ -39,4 +47,4 @@ const style = StyleSheet.create({
   },
 });
 
-export default FilmElement;
+// export default FilmElement;
