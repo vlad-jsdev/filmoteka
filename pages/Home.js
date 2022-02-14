@@ -22,7 +22,7 @@ const Home = () => {
   const movies = dataMovies.data;
   const tvs = dataTVs.data;
   const genres = dataGenres.genres;
-  const {posterImages} = dataMovies;
+  const {posterImages, posterImagesId} = dataMovies;
   const dispatch = useDispatch();
 
   console.log('poster IMG: ', genres);
@@ -38,13 +38,13 @@ const Home = () => {
     <>
       {loading ? (
         <ScrollView>
-          <FilmsPoster images={posterImages} />
+          <FilmsPoster images={posterImages} id={posterImagesId} />
           <Text style={style.text}>Popular Films</Text>
           <List data={movies} />
           <Text style={style.text}>Popular TVs</Text>
           <List data={tvs} />
           <Text style={style.text}>Ganres</Text>
-          <List data={genres} />
+          <List data={genres} type={'GENRES'} />
         </ScrollView>
       ) : (
         <View style={style.parentIndicator}>

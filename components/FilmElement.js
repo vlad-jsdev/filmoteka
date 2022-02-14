@@ -2,21 +2,34 @@ import React, {PureComponent} from 'react';
 import {Image, TouchableOpacity, StyleSheet, Text, View} from 'react-native';
 import {URL_IMAGE} from '../constants/constants';
 import {useNavigation} from '@react-navigation/native';
+import {generateColor} from '../services/genrateColor';
 
 class FilmElement extends PureComponent {
   render() {
-    const {navigation} = this.props;
-    const {item} = this.props;
+    const {navigation, item, type} = this.props;
+
     return (
       <View>
         <TouchableOpacity
           style={style.container}
-          onPress={() => navigation.navigate('Details', {item})}>
-          <Image
-            style={style.image}
-            source={{uri: URL_IMAGE + item.poster_path}}
-          />
-          <Text style={style.title}>{item.name || item.original_title}</Text>
+          onPress={() => navigation.navigate('Details', {id: item.id})}>
+          {type === 'GENRES' ? (
+            <View style={[style.genres, {backgroundColor: generateColor()}]}>
+              <Text style={style.title}>
+                {item.name || item.original_title}
+              </Text>
+            </View>
+          ) : (
+            <>
+              <Image
+                style={style.image}
+                source={{uri: URL_IMAGE + item.poster_path}}
+              />
+              <Text style={style.title}>
+                {item.name || item.original_title}
+              </Text>
+            </>
+          )}
         </TouchableOpacity>
       </View>
     );
@@ -34,6 +47,14 @@ const style = StyleSheet.create({
     position: 'relative',
     alignItems: 'center',
   },
+  genres: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 50,
+    minWidth: 120,
+    borderRadius: 20,
+    opacity: 0.7,
+  },
   image: {
     height: 200,
     width: 120,
@@ -46,5 +67,3 @@ const style = StyleSheet.create({
     color: 'black',
   },
 });
-
-// export default FilmElement;

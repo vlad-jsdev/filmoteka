@@ -1,15 +1,18 @@
 import React from 'react';
 import {SliderBox} from 'react-native-image-slider-box';
 import {Dimensions, StyleSheet} from 'react-native';
+import FilmElement from './FilmElement';
+import { useNavigation } from "@react-navigation/native";
 
 const dimension = Dimensions.get('screen');
-const FilmPoster = ({images}) => {
+const FilmPoster = ({images, id}) => {
+  const navigation = useNavigation()
   return (
     <SliderBox
       // ImageComponent={data}
       images={images}
       sliderBoxHeight={dimension.height / 1.3}
-      onCurrentImagePressed={index => console.warn(`image ${index} pressed`)}
+      onCurrentImagePressed={() => navigation.navigate('Details', {id})}
       dotColor={style.dot}
       inactiveDotColor={style.inactiveDot}
       // paginationBoxVerticalPadding={20}

@@ -5,6 +5,7 @@ const initialState = {
   isLoading: false,
   data: [],
   posterImages: [],
+  posterImagesId: [],
 };
 
 export const popularMoviesReducer = (state = initialState, action) => {
@@ -19,6 +20,7 @@ export const popularMoviesReducer = (state = initialState, action) => {
         posterImages: action.payload.map(
           item => `${URL_IMAGE + item.poster_path}`,
         ),
+        posterImagesId: action.payload.map(item => `${URL_IMAGE + item.id}`),
       };
     default:
       return state;

@@ -1,15 +1,23 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Text, View} from 'react-native';
 import {useRoute} from '@react-navigation/native';
+import {useDispatch, useSelector} from 'react-redux';
+import {getGenresAsync} from '../store/film/filmActions';
 
 const MovieDetails = () => {
+  const film = useSelector(store => store.filmReducer);
+  const dispatch = useDispatch();
   const {params} = useRoute();
-  const {item} = params;
-  console.log(item);
+  const {id} = params;
+
+  useEffect(() => {
+    dispatch(getGenresAsync(id));
+  }, []);
+  console.log('Film', film)
   return (
     <View>
       <Text>AAAAAA</Text>
-      <Text>{item.id}</Text>
+      <Text>{id}</Text>
     </View>
   );
 };
