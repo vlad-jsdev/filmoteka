@@ -6,40 +6,26 @@ import {
   ActivityIndicator,
   View,
 } from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
 
-import {getPopularAsync} from '../store/popularMovies/popularMoviesActions';
 import FilmsPoster from '../components/FilmPoster';
 import List from '../components/List';
-import {getPopularTVsAsync} from '../store/popularTVs/popularTVsActions';
-import {getGenresAsync} from '../store/genres/genresActions';
 import {observer} from 'mobx-react-lite';
 import popularMovies from '../mobx/popularMovies';
 import {autorun} from 'mobx';
+import popularTVs from '../mobx/popularTVs';
+import genres from '../mobx/genres';
 
 const Home = observer(() => {
-  // const dataMovies = useSelector(state => state.popularMoviesReducer);
-  // const dataTVs = useSelector(state => state.popularTVsReducer);
-  // const dataGenres = useSelector(state => state.genresReducer);
-  const [loading, setLoading] = useState(true);
-  // const movies = dataMovies.data;
-  // const tvs = dataTVs.data;
-  // const genres = dataGenres.genres;
-  // const {posterImages, posterImagesId} = dataMovies;
-  // const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
 
-  // console.log('poster IMG: ', genres);
-  // useEffect(() => {
-  //   Promise.all([
-  //     dispatch(getPopularAsync()),
-  //     dispatch(getPopularTVsAsync()),
-  //     dispatch(getGenresAsync()),
-  //   ]).finally(() => setLoading(true));
-  // }, []);
   useEffect(
     () =>
       autorun(() => {
-        popularMovies.fetchPopularMovies();
+        Promise.all([
+          popularMovies.fetchPopularMovies(),
+          popularTVs.fetchPopularTVs(),
+          genres.fetchGenres(),
+        ]).then(() => setLoading(true));
       }),
     [],
   );
@@ -54,10 +40,10 @@ const Home = observer(() => {
           />
           <Text style={style.text}>Popular Films</Text>
           <List data={popularMovies.data} />
-          {/*<Text style={style.text}>Popular TVs</Text>*/}
-          {/*<List data={tvs} />*/}
-          {/*<Text style={style.text}>Ganres</Text>*/}
-          {/*<List data={genres} type={'GENRES'} />*/}
+          <Text style={style.text}>Popular TVs</Text>
+          <List data={popularTVs.data} />
+          <Text style={style.text}>Ganres</Text>
+          <List data={genres.data} type={'GENRES'} />
         </ScrollView>
       ) : (
         <View style={style.parentIndicator}>

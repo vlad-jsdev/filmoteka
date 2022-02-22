@@ -1,10 +1,4 @@
-import {
-  action,
-  makeAutoObservable,
-  makeObservable,
-  observable,
-  runInAction,
-} from 'mobx';
+import {action, makeObservable, observable, runInAction} from 'mobx';
 import {FETCH_POPULAR_MOVIES, URL_IMAGE} from '../constants/constants';
 
 class popularMovies {
