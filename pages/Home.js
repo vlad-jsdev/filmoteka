@@ -36,13 +36,22 @@ const Home = observer(() => {
   //     dispatch(getGenresAsync()),
   //   ]).finally(() => setLoading(true));
   // }, []);
-  useEffect(() => autorun(() => popularMovies.fetchPopularMovies()), []);
-  console.log('popular', popularMovies);
+  useEffect(
+    () =>
+      autorun(() => {
+        popularMovies.fetchPopularMovies();
+      }),
+    [],
+  );
+  console.log('popular', popularMovies.posterImagesId);
   return (
     <>
       {loading ? (
         <ScrollView>
-          {/*<FilmsPoster images={posterImages} id={posterImagesId} />*/}
+          <FilmsPoster
+            images={popularMovies.posterImages}
+            id={popularMovies.posterImagesId}
+          />
           <Text style={style.text}>Popular Films</Text>
           <List data={popularMovies.data} />
           {/*<Text style={style.text}>Popular TVs</Text>*/}

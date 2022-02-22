@@ -5,7 +5,7 @@ import {
   observable,
   runInAction,
 } from 'mobx';
-import {FETCH_POPULAR_MOVIES} from '../constants/constants';
+import {FETCH_POPULAR_MOVIES, URL_IMAGE} from '../constants/constants';
 
 class popularMovies {
   isLoading = false;
@@ -20,8 +20,16 @@ class popularMovies {
       posterImages: observable,
       posterImagesId: observable,
       fetchPopularMovies: action,
+      poster: action,
     });
   }
+
+  poster = () => {
+    this.posterImages = this.data.map(
+      item => `${URL_IMAGE + item.poster_path}`,
+    );
+    this.posterImagesId = this.data.map(item => `${URL_IMAGE + item.id}`);
+  };
 
   fetchPopularMovies = async () => {
     const data = await fetch(FETCH_POPULAR_MOVIES)
@@ -33,12 +41,9 @@ class popularMovies {
         ),
       );
     console.log('here', data);
-
     runInAction(() => (this.data = data.results));
+    runInAction(() => this.poster());
   };
-  // showData = () => {
-  //   console.log(this.data);
-  // };
 }
 
 export default new popularMovies();
