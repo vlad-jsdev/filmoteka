@@ -13,38 +13,42 @@ import FilmsPoster from '../components/FilmPoster';
 import List from '../components/List';
 import {getPopularTVsAsync} from '../store/popularTVs/popularTVsActions';
 import {getGenresAsync} from '../store/genres/genresActions';
+import {observer} from 'mobx-react-lite';
+import popularMovies from '../mobx/popularMovies';
+import {autorun} from 'mobx';
 
-const Home = () => {
-  const dataMovies = useSelector(state => state.popularMoviesReducer);
-  const dataTVs = useSelector(state => state.popularTVsReducer);
-  const dataGenres = useSelector(state => state.genresReducer);
-  const [loading, setLoading] = useState(false);
-  const movies = dataMovies.data;
-  const tvs = dataTVs.data;
-  const genres = dataGenres.genres;
-  const {posterImages, posterImagesId} = dataMovies;
-  const dispatch = useDispatch();
+const Home = observer(() => {
+  // const dataMovies = useSelector(state => state.popularMoviesReducer);
+  // const dataTVs = useSelector(state => state.popularTVsReducer);
+  // const dataGenres = useSelector(state => state.genresReducer);
+  const [loading, setLoading] = useState(true);
+  // const movies = dataMovies.data;
+  // const tvs = dataTVs.data;
+  // const genres = dataGenres.genres;
+  // const {posterImages, posterImagesId} = dataMovies;
+  // const dispatch = useDispatch();
 
-  console.log('poster IMG: ', genres);
-  useEffect(() => {
-    Promise.all([
-      dispatch(getPopularAsync()),
-      dispatch(getPopularTVsAsync()),
-      dispatch(getGenresAsync()),
-    ]).finally(() => setLoading(true));
-  }, []);
-
+  // console.log('poster IMG: ', genres);
+  // useEffect(() => {
+  //   Promise.all([
+  //     dispatch(getPopularAsync()),
+  //     dispatch(getPopularTVsAsync()),
+  //     dispatch(getGenresAsync()),
+  //   ]).finally(() => setLoading(true));
+  // }, []);
+  useEffect(() => autorun(() => popularMovies.fetchPopularMovies()), []);
+  console.log('popular', popularMovies);
   return (
     <>
       {loading ? (
         <ScrollView>
-          <FilmsPoster images={posterImages} id={posterImagesId} />
+          {/*<FilmsPoster images={posterImages} id={posterImagesId} />*/}
           <Text style={style.text}>Popular Films</Text>
-          <List data={movies} />
-          <Text style={style.text}>Popular TVs</Text>
-          <List data={tvs} />
-          <Text style={style.text}>Ganres</Text>
-          <List data={genres} type={'GENRES'} />
+          <List data={popularMovies.data} />
+          {/*<Text style={style.text}>Popular TVs</Text>*/}
+          {/*<List data={tvs} />*/}
+          {/*<Text style={style.text}>Ganres</Text>*/}
+          {/*<List data={genres} type={'GENRES'} />*/}
         </ScrollView>
       ) : (
         <View style={style.parentIndicator}>
@@ -53,7 +57,7 @@ const Home = () => {
       )}
     </>
   );
-};
+});
 
 const style = StyleSheet.create({
   text: {

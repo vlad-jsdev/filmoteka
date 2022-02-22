@@ -11,8 +11,8 @@ import {rootReducer} from './store/rootReducer';
 export const store = createStore(rootReducer, applyMiddleware(thunk));
 
 const mainApp = () => (
-  <Provider store={store}>
+  // <Provider store={store}>
     <App />
-  </Provider>
+  // </Provider>
 );
 AppRegistry.registerComponent(appName, () => mainApp);
