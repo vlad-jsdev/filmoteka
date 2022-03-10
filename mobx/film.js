@@ -3,7 +3,7 @@ import {apiKey, FETCH_MOVIE, langEng} from '../constants/constants';
 
 class film {
   isLoading = false;
-  data = [];
+  data = {};
 
   constructor() {
     makeObservable(this, {
@@ -22,8 +22,8 @@ class film {
             error.message,
         ),
       );
-    console.log('here', data);
-    runInAction(() => (this.data = data.genres));
+    // console.log('here', data);
+    runInAction(() => (this.data = data));
   };
 }
 

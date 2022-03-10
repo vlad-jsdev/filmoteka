@@ -2,11 +2,11 @@ import React from 'react';
 import {SliderBox} from 'react-native-image-slider-box';
 import {Dimensions, StyleSheet} from 'react-native';
 import FilmElement from './FilmElement';
-import { useNavigation } from "@react-navigation/native";
+import {useNavigation} from '@react-navigation/native';
 
 const dimension = Dimensions.get('screen');
 const FilmPoster = ({images, id}) => {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
   return (
     <SliderBox
       // ImageComponent={data}
