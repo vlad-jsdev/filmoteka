@@ -18,10 +18,13 @@ import {URL_IMAGE} from '../constants/constants';
 import StarRating from 'react-native-star-rating';
 import dateFormat from 'dateformat';
 import PlayButton from '../components/PlayButton';
+import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
+import VideoPlayer from 'react-native-video-controls';
+import Video from '../components/Video';
 
 const height = Dimensions.get('screen').height;
 
-const MovieDetails = observer(() => {
+const MovieDetails = observer(({navigation}) => {
   const [loading, setLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const {params} = useRoute();
@@ -33,7 +36,7 @@ const MovieDetails = observer(() => {
   console.log('Film', film);
 
   const videoShown = () => {
-    setModalVisible(true);
+    setModalVisible(!modalVisible);
   };
   return (
     <>
@@ -73,8 +76,16 @@ const MovieDetails = observer(() => {
               </Text>
             </View>
           </ScrollView>
-          <Modal visible={modalVisible}>
-            <Text>HELLO</Text>
+          <Modal
+            supportedOrientations={['portrait', 'landscape']}
+            animationType="slide"
+            visible={modalVisible}>
+            <View style={styles.videoModal}>
+              <Video onClose={videoShown} />
+              {/*<Pressable onPress={() => videoShown()}>*/}
+              {/*  <Text>Hide modal</Text>*/}
+              {/*</Pressable>*/}
+            </View>
           </Modal>
         </View>
       ) : (
@@ -127,5 +138,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: -25,
     right: 20,
+  },
+  videoModal: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
