@@ -82,9 +82,6 @@ const MovieDetails = observer(({navigation}) => {
             visible={modalVisible}>
             <View style={styles.videoModal}>
               <Video onClose={videoShown} />
-              {/*<Pressable onPress={() => videoShown()}>*/}
-              {/*  <Text>Hide modal</Text>*/}
-              {/*</Pressable>*/}
             </View>
           </Modal>
         </View>
