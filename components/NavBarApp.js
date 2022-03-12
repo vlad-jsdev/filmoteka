@@ -22,7 +22,7 @@ class NavBarApp extends PureComponent {
 }
 const styles = StyleSheet.create({
   main: {
-    marginTop: 40,
+    position: 'absolute',
   },
 });
 export default NavBarApp;

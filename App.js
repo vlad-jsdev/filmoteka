@@ -17,22 +17,22 @@ const App = () => {
         <Stack.Screen
           name="Home"
           component={Home}
-          options={{
+          options={({navigation}) => ({
             headerTransparent: true,
-            header: ({navigation}) => (
+            headerLeft: () => (
               <NavBarApp navigation={navigation} main={true} />
             ),
-          }}
+          })}
         />
         <Stack.Screen
           name="Details"
           component={MovieDetails}
-          options={{
+          options={({navigation}) => ({
             headerTransparent: true,
-            header: ({navigation}) => (
+            headerLeft: () => (
               <NavBarApp navigation={navigation} main={false} />
             ),
-          }}
+          })}
         />
       </Stack.Navigator>
     </NavigationContainer>
