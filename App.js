@@ -19,9 +19,8 @@ const App = () => {
           component={Home}
           options={({navigation}) => ({
             headerTransparent: true,
-            headerLeft: () => (
-              <NavBarApp navigation={navigation} main={true} />
-            ),
+            title: '',
+            headerLeft: () => <NavBarApp navigation={navigation} main={true} />,
           })}
         />
         <Stack.Screen
@@ -29,6 +28,7 @@ const App = () => {
           component={MovieDetails}
           options={({navigation}) => ({
             headerTransparent: true,
+            title: '',
             headerLeft: () => (
               <NavBarApp navigation={navigation} main={false} />
             ),
