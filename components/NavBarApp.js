@@ -6,13 +6,20 @@ class NavBarApp extends PureComponent {
   render() {
     const {navigation, main} = this.props;
     return (
-      <SafeAreaView>
+      <SafeAreaView style={styles.navBar}>
         {main ? (
-          <View />
+          <View style={styles.main}>
+            <Pressable>
+              <Icon name={'search-outline'} size={30} color={'white'} />
+            </Pressable>
+          </View>
         ) : (
-          <View>
+          <View style={styles.main}>
             <Pressable onPress={() => navigation.goBack()}>
               <Icon name={'chevron-back-outline'} size={40} color={'white'} />
+            </Pressable>
+            <Pressable>
+              <Icon name={'search-outline'} size={30} color={'white'} />
             </Pressable>
           </View>
         )}
@@ -21,8 +28,15 @@ class NavBarApp extends PureComponent {
   }
 }
 const styles = StyleSheet.create({
-  main: {
-    position: 'absolute',
+  navBar: {
+    flex: 1,
   },
+  main: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingRight: 40,
+    alignItems: 'center',
+  },
+  search: {},
 });
 export default NavBarApp;
