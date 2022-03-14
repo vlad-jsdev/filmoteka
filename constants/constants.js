@@ -5,6 +5,7 @@ export const movie = '/movie/';
 export const pageNum = '&page=1';
 
 export const popularTVs = '/tv/popular';
+export const search = '/search/multi';
 export const genres = '/genre/movie/list';
 export const langEng = '&language=en-US';
 
@@ -16,7 +17,8 @@ export const FETCH_POPULAR_MOVIES =
 export const FETCH_POPULAR_TVS =
   basicUrl + popularTVs + apiKey + langEng + pageNum;
 
+export const FETCH_SEARCH = basicUrl + search + apiKey + langEng;
+
 export const FETCH_GENRES = basicUrl + genres + apiKey + langEng;
 
 export const FETCH_MOVIE = basicUrl + movie;
-
