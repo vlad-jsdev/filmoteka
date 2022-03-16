@@ -13,7 +13,7 @@ class search {
     });
   }
 
-  fetchPopularTVs = async () => {
+  searchMovie = async () => {
     const data = await fetch(FETCH_SEARCH)
       .then(data => data.json())
       .catch(error =>
@@ -23,7 +23,7 @@ class search {
         ),
       );
     console.log('here', data);
-    runInAction(() => (this.data = data.results));
+    // runInAction(() => (this.data = data.results));
   };
 }
 

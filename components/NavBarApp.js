@@ -9,7 +9,7 @@ class NavBarApp extends PureComponent {
       <SafeAreaView style={styles.navBar}>
         {main ? (
           <View style={styles.main}>
-            <Pressable>
+            <Pressable onPress={() => navigation.navigate('Search')}>
               <Icon name={'search-outline'} size={30} color={'white'} />
             </Pressable>
           </View>

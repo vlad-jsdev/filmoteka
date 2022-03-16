@@ -7,6 +7,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import MovieDetails from './pages/MovieDetails';
 import NavBarApp from './components/NavBarApp';
+import Search from "./pages/Search";
 
 const Stack = createNativeStackNavigator();
 
@@ -26,6 +27,17 @@ const App = () => {
         <Stack.Screen
           name="Details"
           component={MovieDetails}
+          options={({navigation}) => ({
+            headerTransparent: true,
+            title: '',
+            headerLeft: () => (
+              <NavBarApp navigation={navigation} main={false} />
+            ),
+          })}
+        />
+        <Stack.Screen
+          name="Search"
+          component={Search}
           options={({navigation}) => ({
             headerTransparent: true,
             title: '',
