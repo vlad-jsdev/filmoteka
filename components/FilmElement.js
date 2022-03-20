@@ -6,13 +6,14 @@ import {generateColor} from '../services/genrateColor';
 
 class FilmElement extends PureComponent {
   render() {
-    const {navigation, item, type} = this.props;
-
+    const {navigation, item, type, videoType} = this.props;
     return (
       <View>
         <TouchableOpacity
           style={style.container}
-          onPress={() => navigation.navigate('Details', {id: item.id})}>
+          onPress={() =>
+            navigation.navigate('Details', {id: item.id, videoType: videoType})
+          }>
           {type === 'GENRES' ? (
             <View style={[style.genres, {backgroundColor: generateColor()}]}>
               <Text style={style.title}>

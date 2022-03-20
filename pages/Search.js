@@ -7,53 +7,86 @@ import {
   View,
   SafeAreaView,
   TextInput,
+  Pressable,
+  FlatList,
+  TouchableOpacity,
 } from 'react-native';
 
-import FilmsPoster from '../components/FilmPoster';
-import List from '../components/List';
 import {observer} from 'mobx-react-lite';
-import popularMovies from '../mobx/popularMovies';
+import Icon from 'react-native-vector-icons/Ionicons';
+import search from '../mobx/search';
+import FilmElement from '../components/FilmElement';
 import {autorun} from 'mobx';
-import popularTVs from '../mobx/popularTVs';
-import genres from '../mobx/genres';
 
-const Search = observer(() => {
+const Search = observer(({navigation}) => {
   const [loading, setLoading] = useState(false);
-  const [number, onChangeText] = useState();
+  const [text, onChangeText] = useState();
+  const [searchResult, setSearchResult] = useState([]);
 
-  useEffect(
-    () =>
-      autorun(() => {
-        Promise.all([
-          popularMovies.fetchPopularMovies(),
-          popularTVs.fetchPopularTVs(),
-          genres.fetchGenres(),
-        ]).then(() => setLoading(true));
+  const onSubmit = e =>
+    autorun(() =>
+      search.searchMovies(e).then(() => {
+        if (search.data && search.data.length <= 20) {
+          setSearchResult(search.data);
+        }
       }),
-    [],
-  );
-  console.log('popular', popularMovies.posterImagesId);
+    );
+
   return (
-    <>
-      <SafeAreaView>
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangeText}
-          value={number}
-          placeholder="Search"
-        />
-      </SafeAreaView>
-    </>
+    <SafeAreaView>
+      <View style={styles.container}>
+        <View style={styles.form}>
+          <TextInput
+            style={styles.input}
+            onChangeText={onChangeText}
+            value={text}
+            placeholder="Search"
+          />
+        </View>
+        <TouchableOpacity onPress={() => onSubmit(text)}>
+          <Icon name={'search-outline'} size={30} color={'white'} />
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.searchItems}>
+        {searchResult && searchResult.length > 0 ? (
+          <FlatList
+            keyExtractor={item => item.id}
+            numColumns={3}
+            data={searchResult.slice()}
+            renderItem={({item}) => (
+              <FilmElement navigation={navigation} item={item} />
+            )}
+          />
+        ) : (
+          <View>
+            <Text>Type to find Films or TVs</Text>
+          </View>
+        )}
+      </View>
+    </SafeAreaView>
   );
 });
 
 const styles = StyleSheet.create({
+  container: {
+    padding: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  form: {
+    flexBasis: 'auto',
+    flexGrow: 1,
+  },
   input: {
     borderRadius: 15,
     height: 50,
     margin: 12,
     borderWidth: 0.5,
     padding: 10,
+  },
+  searchItems: {
+    marginBottom: 200,
   },
 });
 

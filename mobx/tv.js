@@ -1,20 +1,20 @@
 import {action, makeObservable, observable, runInAction} from 'mobx';
-import {FETCH_SEARCH} from '../constants/constants';
+import {apiKey, FETCH_TV, langEng} from '../constants/constants';
 
-class search {
+class tv {
   isLoading = false;
-  data = [];
+  data = {};
 
   constructor() {
     makeObservable(this, {
       isLoading: observable,
       data: observable,
-      searchMovies: action,
+      fetchTvs: action,
     });
   }
 
-  searchMovies = async query => {
-    const data = await fetch(FETCH_SEARCH + `&query=${query}`)
+  fetchTvs = async id => {
+    const data = await fetch(FETCH_TV + id + apiKey + langEng)
       .then(data => data.json())
       .catch(error =>
         console.log(
@@ -22,8 +22,8 @@ class search {
             error.message,
         ),
       );
-    runInAction(() => (this.data = data.results));
+    runInAction(() => (this.data = data));
   };
 }
 
-export default new search();
+export default new tv();
