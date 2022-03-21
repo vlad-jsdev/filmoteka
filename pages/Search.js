@@ -14,6 +14,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import search from '../mobx/search';
 import FilmElement from '../components/FilmElement';
 import {autorun} from 'mobx';
+import {movies, tvs} from '../constants/constants';
 
 const Search = observer(({navigation}) => {
   const [loading, setLoading] = useState(false);
@@ -23,11 +24,16 @@ const Search = observer(({navigation}) => {
   const onSubmit = e =>
     autorun(() =>
       Promise.all([
-        search.searchMovies(e, 'movie'),
-        search.searchMovies(e, 'tv'),
-      ]).then(() => setSearchResult(search.data)),
+        search
+          .searchMovies(e, 'tv')
+          .then(() => setSearchResult(prev => [...prev, ...search.data])),
+        search
+          .searchMovies(e, 'movie')
+          .then(() => setSearchResult(prev => [...prev, ...search.data])),
+      ]).then(() => setLoading(false)),
     );
-  console.log('Search Result: ', searchResult);
+  console.log('HERE', searchResult);
+
   return (
     <SafeAreaView>
       <View style={styles.container}>
@@ -50,12 +56,16 @@ const Search = observer(({navigation}) => {
             keyExtractor={item => item.id}
             numColumns={3}
             data={searchResult.slice()}
-            renderItem={({item}) => (
-              <FilmElement
-                navigation={navigation}
-                item={item}
-              />
-            )}
+            renderItem={({item}) => {
+              console.log('ITEMIN', item.type);
+              return (
+                <FilmElement
+                  navigation={navigation}
+                  item={item}
+                  videoType={item.type}
+                />
+              );
+            }}
           />
         ) : (
           <View>

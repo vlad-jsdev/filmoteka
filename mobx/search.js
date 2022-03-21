@@ -32,7 +32,13 @@ class search {
             error.message,
         ),
       );
-    runInAction(() => (this.data = data.results));
+    runInAction(
+      () =>
+        (this.data = data.results.map(item => ({...item, type: type + 's'}))),
+    );
+  };
+  cleanData = () => {
+    runInAction(() => (this.data = []));
   };
 }
 
