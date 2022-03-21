@@ -2,12 +2,9 @@ import React, {useEffect, useState} from 'react';
 import {
   Text,
   StyleSheet,
-  ScrollView,
-  ActivityIndicator,
   View,
   SafeAreaView,
   TextInput,
-  Pressable,
   FlatList,
   TouchableOpacity,
 } from 'react-native';
@@ -25,13 +22,12 @@ const Search = observer(({navigation}) => {
 
   const onSubmit = e =>
     autorun(() =>
-      search.searchMovies(e).then(() => {
-        if (search.data && search.data.length <= 20) {
-          setSearchResult(search.data);
-        }
-      }),
+      Promise.all([
+        search.searchMovies(e, 'movie'),
+        search.searchMovies(e, 'tv'),
+      ]).then(() => setSearchResult(search.data)),
     );
-
+  console.log('Search Result: ', searchResult);
   return (
     <SafeAreaView>
       <View style={styles.container}>
@@ -55,7 +51,10 @@ const Search = observer(({navigation}) => {
             numColumns={3}
             data={searchResult.slice()}
             renderItem={({item}) => (
-              <FilmElement navigation={navigation} item={item} />
+              <FilmElement
+                navigation={navigation}
+                item={item}
+              />
             )}
           />
         ) : (

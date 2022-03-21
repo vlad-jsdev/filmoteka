@@ -1,5 +1,12 @@
 import {action, makeObservable, observable, runInAction} from 'mobx';
-import {FETCH_SEARCH} from '../constants/constants';
+import {
+  apiKey,
+  basicUrl,
+  langEng,
+  movies,
+  searchMovie,
+  tvs,
+} from '../constants/constants';
 
 class search {
   isLoading = false;
@@ -13,9 +20,12 @@ class search {
     });
   }
 
-  searchMovies = async query => {
-    const data = await fetch(FETCH_SEARCH + `&query=${query}`)
+  searchMovies = async (query, type) => {
+    const data = await fetch(
+      basicUrl + searchMovie + type + apiKey + langEng + `&query=${query}`,
+    )
       .then(data => data.json())
+
       .catch(error =>
         console.log(
           'There has been a problem with your axios operation: ' +

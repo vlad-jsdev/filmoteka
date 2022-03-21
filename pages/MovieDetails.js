@@ -26,28 +26,29 @@ const height = Dimensions.get('screen').height;
 const MovieDetails = observer(({navigation}) => {
   const [loading, setLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
-  // const [details, setDetails] = useState([]);
+  const [details, setDetails] = useState([]);
   const {params} = useRoute();
   const {id, videoType} = params;
 
+  console.log(videoType);
   useEffect(() => {
-    if (videoType === 'movies') {
-      autorun(() =>
+    autorun(() => {
+      if (videoType === 'movies') {
         film.fetchFilm(id).then(() => {
           setLoading(true);
-          // setDetails(film.data);
-        }),
-      );
-    } else {
-      autorun(() =>
-        tv.fetchTvs(id).then(() => {
-          setLoading(true);
-          // setDetails(tv.data);
-          console.log('tv ', tv.data);
-        }),
-      );
-    }
-  }, [id, videoType]);
+          setDetails(film.data);
+        });
+      } else {
+        autorun(() =>
+          tv.fetchTvs(id).then(() => {
+            setLoading(true);
+            setDetails(tv.data);
+            console.log('tv ', tv.data);
+          }),
+        );
+      }
+    });
+  }, [id]);
   console.log('Tv', tv.original_name);
 
   const videoShown = () => {
@@ -62,13 +63,7 @@ const MovieDetails = observer(({navigation}) => {
               resizeMode="cover"
               style={styles.image}
               source={{
-                uri:
-                  URL_IMAGE +
-                  `${
-                    videoType === 'movies'
-                      ? film.data.poster_path
-                      : tv.data.backdrop_path
-                  }`,
+                uri: URL_IMAGE + details.poster_path || details.backdrop_path,
               }}
             />
             <View style={styles.container}>
@@ -76,52 +71,28 @@ const MovieDetails = observer(({navigation}) => {
                 <PlayButton handlePress={videoShown} />
               </View>
               <Text style={styles.movieTitle}>
-                {videoType === 'movies'
-                  ? film.data.title
-                  : tv.data.original_name}
+                {details.title || details.original_name}
               </Text>
-              {videoType === 'movies'
-                ? film.data.genres && (
-                    <View style={styles.genresContainer}>
-                      {film.data.genres.map(genre => (
-                        <Text style={styles.genres} key={genre.id}>
-                          {genre.name}
-                        </Text>
-                      ))}
-                    </View>
-                  )
-                : tv.data.genres && (
-                    <View style={styles.genresContainer}>
-                      {tv.data.genres.map(genre => (
-                        <Text style={styles.genres} key={genre.id}>
-                          {genre.name}
-                        </Text>
-                      ))}
-                    </View>
-                  )}
-
+              {details.genres && (
+                <View style={styles.genresContainer}>
+                  {details.genres.map(genre => (
+                    <Text style={styles.genres} key={genre.id}>
+                      {genre.name}
+                    </Text>
+                  ))}
+                </View>
+              )}
               <StarRating
                 disabled={true}
                 maxStars={5}
                 starSize={30}
-                rating={
-                  videoType === 'movies'
-                    ? film.data.vote_average / 2
-                    : tv.data.vote_average
-                }
+                rating={details.vote_average / 2}
                 fullStarColor={'gold'}
               />
-              <Text style={styles.overview}>
-                {videoType === 'movies' ? film.data.overview : tv.data.overview}
-              </Text>
+              <Text style={styles.overview}>{details.overview}</Text>
               <Text style={styles.release}>
                 {'Release date: ' +
-                  dateFormat(
-                    videoType === 'movies'
-                      ? film.data.release_date
-                      : tv.data.release_date,
-                    'mmmm dS, yyyy',
-                  )}
+                  dateFormat(details.release_date, 'mmmm dS, yyyy')}
               </Text>
             </View>
           </ScrollView>
