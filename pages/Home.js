@@ -62,6 +62,7 @@ const style = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     alignSelf: 'center',
+    padding: 10,
   },
   parentIndicator: {
     flex: 1,

@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react';
 import {Pressable, SafeAreaView, View, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Colors from '../theme/colors';
 
 class NavBarApp extends PureComponent {
   render() {
@@ -10,16 +11,28 @@ class NavBarApp extends PureComponent {
         {main ? (
           <View style={styles.main}>
             <Pressable onPress={() => navigation.navigate('Search')}>
-              <Icon name={'search-outline'} size={30} color={'white'} />
+              <Icon
+                name={'search-outline'}
+                size={30}
+                color={Colors.lightGray}
+              />
             </Pressable>
           </View>
         ) : (
           <View style={styles.main}>
             <Pressable onPress={() => navigation.goBack()}>
-              <Icon name={'chevron-back-outline'} size={40} color={'white'} />
+              <Icon
+                name={'chevron-back-outline'}
+                size={40}
+                color={Colors.lightGray}
+              />
             </Pressable>
             <Pressable>
-              <Icon name={'search-outline'} size={30} color={'white'} />
+              <Icon
+                name={'search-outline'}
+                size={30}
+                color={Colors.lightGray}
+              />
             </Pressable>
           </View>
         )}

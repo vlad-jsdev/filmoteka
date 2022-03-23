@@ -34,7 +34,6 @@ class popularMovies {
             error.message,
         ),
       );
-    console.log('here', data);
     runInAction(() => (this.data = data.results));
     runInAction(() => this.poster());
   };
