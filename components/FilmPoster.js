@@ -5,14 +5,18 @@ import FilmElement from './FilmElement';
 import {useNavigation} from '@react-navigation/native';
 
 const dimension = Dimensions.get('screen');
-const FilmPoster = ({images, id}) => {
+const FilmPoster = ({images, id, videoType}) => {
   const navigation = useNavigation();
+  console.log('ID: ', id);
+  console.log('VideoType: ', videoType);
   return (
     <SliderBox
       // ImageComponent={data}
       images={images}
       sliderBoxHeight={dimension.height / 1.3}
-      onCurrentImagePressed={() => navigation.navigate('Details', {id})}
+      onCurrentImagePressed={index =>
+        navigation.navigate('Details', {id: id[index], videoType})
+      }
       dotColor={style.dot}
       inactiveDotColor={style.inactiveDot}
       // paginationBoxVerticalPadding={20}

@@ -38,6 +38,7 @@ const Home = observer(() => {
       {loading ? (
         <ScrollView>
           <FilmsPoster
+            videoType={movies}
             images={popularMovies.posterImages}
             id={popularMovies.posterImagesId}
           />

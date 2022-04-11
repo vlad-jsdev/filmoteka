@@ -57,7 +57,6 @@ const Search = observer(({navigation}) => {
             numColumns={3}
             data={searchResult.slice()}
             renderItem={({item}) => {
-              console.log('ITEMIN', item.type);
               return (
                 <FilmElement
                   navigation={navigation}

@@ -22,7 +22,7 @@ class popularMovies {
     this.posterImages = this.data.map(
       item => `${URL_IMAGE + item.poster_path}`,
     );
-    this.posterImagesId = this.data.map(item => `${URL_IMAGE + item.id}`);
+    this.posterImagesId = this.data.map(item => item.id);
   };
 
   fetchPopularMovies = async () => {
