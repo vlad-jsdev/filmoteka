@@ -11,7 +11,6 @@ const FilmPoster = ({images, id, videoType}) => {
   console.log('VideoType: ', videoType);
   return (
     <SliderBox
-      // ImageComponent={data}
       images={images}
       sliderBoxHeight={dimension.height / 1.3}
       onCurrentImagePressed={index =>
@@ -19,7 +18,6 @@ const FilmPoster = ({images, id, videoType}) => {
       }
       dotColor={style.dot}
       inactiveDotColor={style.inactiveDot}
-      // paginationBoxVerticalPadding={20}
       autoplay
       circleLoop
       resizeMethod={'resize'}
