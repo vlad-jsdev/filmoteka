@@ -1,7 +1,7 @@
 # FILMOTEKA
 ![](theme/filmoteka.png)
 
-![](theme/preview.gif)
+<img src="theme/preview.gif" width="350">
 
 ### Description
 Video Streaming Project for IOS and Android platforms
