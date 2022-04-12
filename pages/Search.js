@@ -14,7 +14,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import search from '../mobx/search';
 import FilmElement from '../components/FilmElement';
 import {autorun} from 'mobx';
-import {movies, tvs} from '../constants/constants';
 
 const Search = observer(({navigation}) => {
   const [loading, setLoading] = useState(false);

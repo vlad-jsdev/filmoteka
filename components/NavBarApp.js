@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react';
-import {Pressable, SafeAreaView, View, StyleSheet} from 'react-native';
+import {Pressable, SafeAreaView, View, StyleSheet, Image} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Colors from '../theme/colors';
 
@@ -10,6 +10,12 @@ class NavBarApp extends PureComponent {
       <SafeAreaView style={styles.navBar}>
         {main ? (
           <View style={styles.main}>
+            <Pressable>
+              <Image
+                style={styles.logo}
+                source={require('../theme/filmoteka.png')}
+              />
+            </Pressable>
             <Pressable onPress={() => navigation.navigate('Search')}>
               <Icon
                 name={'search-outline'}
@@ -27,7 +33,7 @@ class NavBarApp extends PureComponent {
                 color={Colors.lightGray}
               />
             </Pressable>
-            <Pressable>
+            <Pressable onPress={() => navigation.navigate('Search')}>
               <Icon
                 name={'search-outline'}
                 size={30}
@@ -51,5 +57,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   search: {},
+  logo: {
+    width: 80,
+    height: 70,
+  },
 });
 export default NavBarApp;

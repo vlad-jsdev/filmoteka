@@ -10,10 +10,10 @@ import {
   Modal,
 } from 'react-native';
 import {useRoute} from '@react-navigation/native';
-
 import {autorun} from 'mobx';
-import film from '../mobx/film';
 import {observer} from 'mobx-react-lite';
+
+import film from '../mobx/film';
 import {URL_IMAGE} from '../constants/constants';
 import StarRating from 'react-native-star-rating';
 import dateFormat from 'dateformat';
@@ -43,17 +43,16 @@ const MovieDetails = observer(({navigation}) => {
           tv.fetchTvs(id).then(() => {
             setLoading(true);
             setDetails(tv.data);
-            console.log('tv ', tv.data);
           }),
         );
       }
     });
   }, [id]);
-  console.log('Tv', tv.original_name);
 
   const videoShown = () => {
     setModalVisible(!modalVisible);
   };
+
   return (
     <>
       {loading ? (

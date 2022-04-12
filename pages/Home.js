@@ -6,12 +6,12 @@ import {
   ActivityIndicator,
   View,
 } from 'react-native';
+import {observer} from 'mobx-react-lite';
+import {autorun} from 'mobx';
 
 import FilmsPoster from '../components/FilmPoster';
 import List from '../components/List';
-import {observer} from 'mobx-react-lite';
 import popularMovies from '../mobx/popularMovies';
-import {autorun} from 'mobx';
 import popularTVs from '../mobx/popularTVs';
 import genres from '../mobx/genres';
 import {movies, tvs} from '../constants/constants';
@@ -30,9 +30,7 @@ const Home = observer(() => {
       }),
     [],
   );
-  console.log('data: ', popularTVs.data);
 
-  console.log('popular', popularMovies.posterImagesId);
   return (
     <>
       {loading ? (
@@ -46,8 +44,8 @@ const Home = observer(() => {
           <List data={popularMovies.data} videoType={movies} />
           <Text style={style.text}>Popular TVs</Text>
           <List data={popularTVs.data} videoType={tvs} />
-          <Text style={style.text}>Ganres</Text>
-          <List data={genres.data} type={'GENRES'} />
+          {/*<Text style={style.text}>Ganres</Text>*/}
+          {/*<List data={genres.data} type={'GENRES'} />*/}
         </ScrollView>
       ) : (
         <View style={style.parentIndicator}>
