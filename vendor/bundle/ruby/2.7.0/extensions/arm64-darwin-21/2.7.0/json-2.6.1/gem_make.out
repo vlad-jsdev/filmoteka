@@ -1,0 +1,13 @@
+current directory: /Users/vlad/Documents/filmoteka/vendor/bundle/ruby/2.7.0/gems/json-2.6.1/ext/json
+/Users/vlad/.rbenv/versions/2.7.4/bin/ruby -I /Users/vlad/.rbenv/versions/2.7.4/lib/ruby/2.7.0 -r ./siteconf20221117-20331-erkejx.rb extconf.rb
+creating Makefile
+
+current directory: /Users/vlad/Documents/filmoteka/vendor/bundle/ruby/2.7.0/gems/json-2.6.1/ext/json
+make "DESTDIR=" clean
+
+current directory: /Users/vlad/Documents/filmoteka/vendor/bundle/ruby/2.7.0/gems/json-2.6.1/ext/json
+make "DESTDIR="
+make: Nothing to be done for `all'.
+
+current directory: /Users/vlad/Documents/filmoteka/vendor/bundle/ruby/2.7.0/gems/json-2.6.1/ext/json
+make "DESTDIR=" install
